@@ -10,6 +10,7 @@ Use syntax for run: server104.exe file.json
 
 Json file structure like this:
 ```
+-[
 -  { "Server":
 -    {   "UdpPort"   :"64002",
 -        "UdpIp"     :"0.0.0.0",
