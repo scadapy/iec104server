@@ -1,15 +1,12 @@
-﻿# creator
-ScadaPy Creator for modbus client
+﻿# iec104server
+iec104server for UDP JSON
 ```
-В настоящий момент актуальная версия 3.4.2
+Now version 2.7
 ```
-
-
 iec104server
 ```
-Use syntax for run: 
+Use syntax for run: server104.exe file.json
 ```
-server104.exe file.json
 
 Json file structure like this:
 ```
