@@ -1,0 +1,23 @@
+﻿[
+ { "Server":
+              { "UdpPort"   :"64002",
+                "UdpIp"     :"0.0.0.0",
+                "Iec104Port":"2404",
+                "Iec104Ip"  :"127.0.0.1",
+                "Debug"     :"3"
+              }
+ },
+ { "SinglePoint": { "VarType":"bool","VarName": "Discret_1", "IecAddress": "4001", "OffSet": "0", "ByteCount": "1", "ByteSequence": "1" }  },
+ { "SinglePoint": { "VarType":"bool","VarName": "Discret_2", "IecAddress": "4002", "OffSet": "1", "ByteCount": "1", "ByteSequence": "1" }  },
+ { "SinglePoint": { "VarType":"bool","VarName": "Discret_3", "IecAddress": "4003", "OffSet": "2", "ByteCount": "1", "ByteSequence": "1" }  },
+ { "SinglePoint": { "VarType":"bool","VarName": "Unit_2_Discret", "IecAddress": "4004", "OffSet": "0", "ByteCount": "1", "ByteSequence": "1" }  },
+ { "MeasureValue": { "VarType":"int32","VarName": "Analog_1", "IecAddress": "8001", "OffSet": "0", "ByteCount": "1", "ByteSequence": "1" ,"Koef":"1"}  },
+ { "MeasureValue": { "VarType":"int32","VarName": "Analog_1", "IecAddress": "8002", "OffSet": "1", "ByteCount": "1", "ByteSequence": "1" ,"Koef":"1"}  },
+ { "MeasureValue": { "VarType":"int32","VarName": "Analog_1", "IecAddress": "8003", "OffSet": "2", "ByteCount": "1", "ByteSequence": "1" ,"Koef":"0.1"}  },
+ { "MeasureValue": { "VarType":"int32","VarName": "Analog_1", "IecAddress": "8004", "OffSet": "3", "ByteCount": "1", "ByteSequence": "1" ,"Koef":"0.1"}  },
+ { "MeasureValue": { "VarType":"int","VarName": "Analog_2", "IecAddress": "8005", "OffSet": "0", "ByteCount": "1", "ByteSequence": "1" ,"Koef":"1"}  },
+ { "MeasureValue": { "VarType":"int","VarName": "Analog_22", "IecAddress": "8006", "OffSet": "0", "ByteCount": "1", "ByteSequence": "1" ,"Koef":"1"}  },
+ { "MeasureValue": { "VarType":"int","VarName": "Analog_22", "IecAddress": "8007", "OffSet": "1", "ByteCount": "1", "ByteSequence": "1" ,"Koef":"1"}  },
+ { "MeasureValue": { "VarType":"int","VarName": "Analog_22", "IecAddress": "8008", "OffSet": "2", "ByteCount": "1", "ByteSequence": "1" ,"Koef":"1"}  }
+
+]
