@@ -317,6 +317,31 @@ void sendDataSinglePoint(void* alParams,int adr,bool val,CS104_Slave slave)
      CS104_Slave_enqueueASDU(slave, newAsdu);
      CS101_ASDU_destroy(newAsdu);
 }
+
+void printCP56Time2a(CP56Time2a time)
+{
+    printf("%02i:%02i:%02i %02i/%02i/%04i", CP56Time2a_getHour(time),
+                             CP56Time2a_getMinute(time),
+                             CP56Time2a_getSecond(time),
+                             CP56Time2a_getDayOfMonth(time),
+                             CP56Time2a_getMonth(time),
+                             CP56Time2a_getYear(time) + 2000);
+}
+
+static bool clockSyncHandler (void* parameter, IMasterConnection connection, CS101_ASDU asdu, CP56Time2a newTime)
+{
+    printf("tsync-->"); 
+    printCP56Time2a(newTime); 
+    printf("\n");
+    return true;
+}
+
+
+
+
+
+
+
 int main(int argc, char **argv)
 {
      if(argc <= 1 || strcmp(argv[1], "--help")==0 || strcmp(argv[1], "/help")==0 )
@@ -373,7 +398,7 @@ int main(int argc, char **argv)
      struct sockaddr_in servaddr, cliaddr;
      char jline[1000];
      int boffset[1000];
-     printf("\nStart programm:          v.2.7\n");
+     printf("\nStart server iec104:          v.2.7\n");
 /* load from init file json */
      LoadJsonFile(argv[1]);
 /*start UDP server */
@@ -420,6 +445,7 @@ int main(int argc, char **argv)
      CS104_Slave_setLocalAddress(slave, IecIp[0]);
      CS104_Slave_setServerMode(slave, CS104_MODE_SINGLE_REDUNDANCY_GROUP);
      CS101_AppLayerParameters alParams = CS104_Slave_getAppLayerParameters(slave);
+     CS104_Slave_setClockSyncHandler(slave, clockSyncHandler, NULL);
      CS104_Slave_setInterrogationHandler(slave, interrogationHandler, NULL);
      CS104_Slave_setASDUHandler(slave, asduHandler, NULL);
      CS104_Slave_setConnectionRequestHandler(slave, connectionRequestHandler, NULL);
