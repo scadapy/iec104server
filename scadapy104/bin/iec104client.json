@@ -1,0 +1,48 @@
+﻿[
+ { "Client":
+              { "UdpPort"   :"64002",
+                "UdpIp"     :"0.0.0.0",
+                "Iec104Port":"2404",
+                "Iec104Ip"  :"127.0.0.1",
+                "Debug"     :"1",
+                "TimeSync"  :"1"
+              }
+ },
+ 
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+ { "MeasureValue": 
+             {  "VarType":"int32",
+                "VarName": "Analog_1", 
+                "IecAddress": "8002",
+                "Alias": "WaterTemp"
+             }  
+ },
+
+
+ { "MeasureValue": 
+             {  "VarType":"int32",
+                "VarName": "Analog_2", 
+                "IecAddress": "8003",
+                "Alias": "FuelTemp"
+             }  
+ }
+
+
+]
