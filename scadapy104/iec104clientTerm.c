@@ -14,6 +14,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <time.h>
+#include <ncurses.h>
 
 #define MAX_VALUE_ARRAY 100
 /* connection*/
@@ -42,33 +43,29 @@ long int s_time;
 struct tm *m_time;
 char str_t[128]="";
 struct sCP56Time2a newTime;
-/*udp*/
-int ssock;
-int broadcastEnable;
-int ret;
-struct sockaddr_in broadcastAddr; 
-char request[100];
-
+/*window*/
+WINDOW *win;
+int row,col,ist;
 
 static void connectionHandler (void* parameter, CS104_Connection connection, CS104_ConnectionEvent event)
 {
     switch (event) {
      case CS104_CONNECTION_OPENED:
-        printf("Connection established\n");
+     //   printf("Connection established\n");
         conState=1;
 
         break;
      case CS104_CONNECTION_CLOSED:
-        printf("Connection closed\n");
+      //  printf("Connection closed\n");
         conState=0;
         break;
      case CS104_CONNECTION_STARTDT_CON_RECEIVED:
-      printf("Received STARTDT_CON\n");
+   //   printf("Received STARTDT_CON\n");
        conState=1;
 
       break;
      case CS104_CONNECTION_STOPDT_CON_RECEIVED:
-      printf("Received STOPDT_CON\n");
+   //   printf("Received STOPDT_CON\n");
         conState=1;
 
            break;
@@ -77,16 +74,6 @@ static void connectionHandler (void* parameter, CS104_Connection connection, CS1
 static bool asduReceivedHandler (void* parameter, int address, CS101_ASDU asdu)
 {
      int i,z;
-     
-     ssock=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-     broadcastEnable=1;
-     ret=setsockopt(ssock, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable));
-     memset(&broadcastAddr, 0, sizeof broadcastAddr);
-     broadcastAddr.sin_family = AF_INET;
-     inet_pton(AF_INET, UdpIp[0], &broadcastAddr.sin_addr); 
-     broadcastAddr.sin_port = htons(UdpPort);
-     
-     
 /*  M_ME_NC_1: type 13  Short*/
      if (CS101_ASDU_getTypeID(asdu) ==  M_ME_NC_1)
     {
@@ -99,19 +86,16 @@ static bool asduReceivedHandler (void* parameter, int address, CS101_ASDU asdu)
             {
                  if(MeasureAddress[z] == InformationObject_getObjectAddress((InformationObject) io))
                  {
-                     sprintf(request,"{\"name\":\"%s\",\"data\":[%f]}",
-                             MeasureVarname[z],
-                             MeasuredValueShort_getValue((MeasuredValueShort) io));
-                     sendto(ssock, request, strlen(request), 0, (struct sockaddr*)&broadcastAddr, sizeof broadcastAddr);                       
                      if(DebugMode==1)
                     {
                          s_time = time (NULL);
                          m_time  = localtime (&s_time);
                          strftime (str_t, 128, "%d-%m-%Y %X", m_time);
-                         printf("%s Var:%15s Type:%5s Alias:%15s Adr:%i val: %f\n",str_t, MeasureVarname[z],MeasureVarType[z],MeasureAlias[z],
+                         wattroff(win,A_REVERSE);
+                         mvwprintw(win,z+2,60, "%s:%15s %i=%f     ",str_t,MeasureAlias[z],
                                              InformationObject_getObjectAddress((InformationObject) io),
                                              MeasuredValueShort_getValue((MeasuredValueShort) io));
-                                            
+                         wrefresh(win);                   
                     }
                  }
             }
@@ -127,21 +111,18 @@ static bool asduReceivedHandler (void* parameter, int address, CS101_ASDU asdu)
             MeasuredValueScaledWithCP56Time2a io = (MeasuredValueScaledWithCP56Time2a) CS101_ASDU_getElement(asdu, i);
              for(z = 0; z < countOfMeasureValue;z++)
             {
-                 if(MeasureAddress[z] == InformationObject_getObjectAddress((InformationObject) io) )
-
+                 if(MeasureAddress[z] == InformationObject_getObjectAddress((InformationObject) io))
                 {
-                     sprintf(request,"{\"name\":\"%s\",\"data\":[%i]}",
-                             MeasureVarname[z],
-                             MeasuredValueScaled_getValue((MeasuredValueScaled) io) );
-                     sendto(ssock, request, strlen(request), 0, (struct sockaddr*)&broadcastAddr, sizeof broadcastAddr);                        
                      if(DebugMode==1)
                     {
                          s_time = time (NULL);
                          m_time  = localtime (&s_time);
                          strftime (str_t, 128, "%d-%m-%Y %X", m_time);
-                         printf("%s Var:%15s Type:%5s Alias:%15s Adr:%i val: %i\n",str_t, MeasureVarname[z],MeasureVarType[z],MeasureAlias[z],
-                                      InformationObject_getObjectAddress((InformationObject) io),
-                                      MeasuredValueScaled_getValue((MeasuredValueScaled) io));
+                         wattroff(win,A_REVERSE);
+                         mvwprintw(win,z+2,60, "%s:%15s %i=%i     ", str_t, MeasureAlias[z],
+                                     InformationObject_getObjectAddress((InformationObject) io),
+                                     MeasuredValueScaled_getValue((MeasuredValueScaled) io));
+                         wrefresh(win);
                     }
                 }                     
             }
@@ -159,28 +140,24 @@ static bool asduReceivedHandler (void* parameter, int address, CS101_ASDU asdu)
             {            
                  if(SinglePointAddress[z] == InformationObject_getObjectAddress((InformationObject) io) )
                 {   
-                     sprintf(request,"{\"name\":\"%s\",\"data\":[%i]}",
-                             SinglePointVarname[z],
-                             SinglePointInformation_getValue((SinglePointInformation) io) );
-                     sendto(ssock, request, strlen(request), 0, (struct sockaddr*)&broadcastAddr, sizeof broadcastAddr);                        
-
-                    if(DebugMode==1)
+                     if(DebugMode==1)
                     {
                          s_time = time (NULL);
                          m_time  = localtime (&s_time);
                          strftime (str_t, 128, "%d-%m-%Y %X", m_time);
-                         printf("%s Var:%15s Type:%5s Alias:%15s Adr:%i val: %i\n",str_t, SinglePointVarname[z],SinglePointVarType[z],SinglePointAlias[z],
-                                     InformationObject_getObjectAddress((InformationObject) io),
-                                     SinglePointInformation_getValue((SinglePointInformation) io));
-                    
+                         if( SinglePointInformation_getValue((SinglePointInformation) io) == 0) wattron(win,A_REVERSE);
+                         else wattroff(win,A_REVERSE);
+                         mvwprintw(win,z+2,1, "%2i)%s:%10s %i=%i",z,str_t,SinglePointAlias[z],
+                                       InformationObject_getObjectAddress((InformationObject) io),
+                                       SinglePointInformation_getValue((SinglePointInformation) io));
+                         wrefresh(win);
                     }
                 }
             }
             SinglePointInformation_destroy(io);
         }
     }
-     close(ssock);
-     return true;
+    return true;
 }
 void LoadJsonFile(char *jfile)
 {
@@ -200,21 +177,15 @@ void LoadJsonFile(char *jfile)
             countOfSinglePoint=countOfSinglePoint+1;
         }
     }
+
      SinglePointAddress      = (int *)malloc( countOfSinglePoint*sizeof(int) );
      SinglePointValue        = (int *)malloc( countOfSinglePoint*sizeof(int) );
-     printf("\nLoaded File:             %s\n",jfile);        
      int ii=0;
      for (i = 0; i < json_array_get_count(jArray); i++)
     {
          jObj = json_array_get_object(jArray, i);
          if(json_object_dotget_string(jObj, "Client.UdpPort")!=NULL)
         {
-         printf("Client UDP Port:         %s\n",json_object_dotget_string(jObj, "Client.UdpPort"));
-         printf("Client UDP IP  :         %s\n",json_object_dotget_string(jObj, "Client.UdpIp"));
-         printf("Client Iec Port:         %s\n",json_object_dotget_string(jObj, "Client.Iec104Port"));
-         printf("Client Iec IP  :         %s\n",json_object_dotget_string(jObj, "Client.Iec104Ip"));
-         printf("Client Debug   :         %s\n",json_object_dotget_string(jObj, "Client.Debug"));
-         printf("Client TimeSync:         %s\n",json_object_dotget_string(jObj, "Client.TimeSync"));
          UdpIp[0]    =json_object_dotget_string(jObj, "Client.UdpIp");
          IecIp[0]    =json_object_dotget_string(jObj, "Client.Iec104Ip");
          UdpPort  =atoi(json_object_dotget_string(jObj, "Client.UdpPort"));
@@ -223,19 +194,12 @@ void LoadJsonFile(char *jfile)
          TimeSync=atoi(json_object_dotget_string(jObj, "Client.TimeSync"));
         }
     }
-    
-     printf("\nCount Singlepoints:      %d\n",countOfSinglePoint);   
      ii=0;
      for (i = 0; i < json_array_get_count(jArray); i++)
     {
          jObj = json_array_get_object(jArray, i);
          if(json_object_dotget_string(jObj, "SinglePoint.IecAddress")!=NULL)
         {
-             printf("Variables SinglePoint:   %s:%s:%s:%s\n",
-               json_object_dotget_string(jObj, "SinglePoint.VarName"),
-               json_object_dotget_string(jObj, "SinglePoint.IecAddress"),
-               json_object_dotget_string(jObj, "SinglePoint.Alias"),
-               json_object_dotget_string(jObj, "SinglePoint.VarType"));
              SinglePointVarname[ii]     =json_object_dotget_string(jObj, "SinglePoint.VarName");
              SinglePointVarType[ii]     =json_object_dotget_string(jObj, "SinglePoint.VarType");
              SinglePointAddress[ii]     =atoi(json_object_dotget_string(jObj, "SinglePoint.IecAddress"));
@@ -252,7 +216,6 @@ void LoadJsonFile(char *jfile)
             countOfMeasureValue=countOfMeasureValue+1;
         }
     }
-     printf("Count MeasuredValue:     %d\n",countOfMeasureValue);
      MeasureAddress      =(int *)malloc( countOfMeasureValue*sizeof(int) );
      MeasureValue        =(float *)malloc( countOfMeasureValue*sizeof(float) );
 
@@ -262,16 +225,10 @@ void LoadJsonFile(char *jfile)
          jObj = json_array_get_object(jArray, i);
          if(json_object_dotget_string(jObj, "MeasureValue.VarName")!=NULL)
         {
-         printf("Variables MeasuredValue: %s:%s:%s:%s\n",
-               json_object_dotget_string(jObj, "MeasureValue.VarName"),
-               json_object_dotget_string(jObj, "MeasureValue.IecAddress"),
-               json_object_dotget_string(jObj, "MeasureValue.Alias"),
-               json_object_dotget_string(jObj, "MeasureValue.VarType"));
          MeasureVarname[ii]     =json_object_dotget_string(jObj, "MeasureValue.VarName");
          MeasureAlias[ii]       =json_object_dotget_string(jObj, "MeasureValue.Alias");
          MeasureAddress[ii]     =atoi(json_object_dotget_string(jObj, "MeasureValue.IecAddress"));
          MeasureVarType[ii]     =json_object_dotget_string(jObj, "MeasureValue.VarType");
-         //MeasureValue[ii]       =0;
          ii=ii+1;
         }
     }
@@ -282,9 +239,8 @@ void LoadJsonFile(char *jfile)
 int main(int argc, char** argv)
 {
      const char* ip;
+     int cvar=0;
      uint16_t port;
-     if(DebugMode==1) printf("\nStart client iec104:          v.2.8\n");     
-     
      if(argc <= 1)
          {
            puts("\nUse syntax : client104.exe file.json\n"
@@ -328,27 +284,58 @@ int main(int argc, char** argv)
              ip=IecIp[0];        
              port=iecPort;
         }
+         initscr();
+         getmaxyx(stdscr,row,col);
+         cbreak();
+         refresh();
+         win = newwin(row, col, 0, 0);
+         box(win, 0, 0);
+         mvwprintw(win, 0,(col/2)-20, "Client programm iec 60870-5-104 v2.8 ");
+         wrefresh(win);
 TRY_CONNECT:
-     if(DebugMode==1) printf("\nConnecting to: %s:%i\n", ip, port);
+
+     start_color();
+//     init_pair(0,COLOR_BLACK,COLOR_RED);
+//     init_pair(1,COLOR_RED,COLOR_BLACK);
+        init_pair(1,  COLOR_RED,     COLOR_BLACK);
+        init_pair(2,  COLOR_GREEN,   COLOR_BLACK);
+        init_pair(3,  COLOR_YELLOW,  COLOR_BLACK);
+        init_pair(4,  COLOR_BLUE,    COLOR_BLACK);
+        init_pair(5,  COLOR_MAGENTA, COLOR_BLACK);
+        init_pair(6,  COLOR_CYAN,    COLOR_BLACK);
+        init_pair(7,  COLOR_BLUE,    COLOR_WHITE);
+        init_pair(8,  COLOR_WHITE,   COLOR_RED);
+        init_pair(9,  COLOR_BLACK,   COLOR_GREEN);
+        init_pair(10, COLOR_BLUE,    COLOR_YELLOW);
+        init_pair(11, COLOR_WHITE,   COLOR_BLUE);
+        init_pair(12, COLOR_WHITE,   COLOR_MAGENTA);
+        init_pair(13, COLOR_BLACK,   COLOR_CYAN);     
+     
+              
+     mvwprintw(win,row -2,1, "Connecting to: %s:%i", ip, port);
+     wrefresh(win);
      CS104_Connection con = CS104_Connection_create(ip, port);
      CS104_Connection_setConnectionHandler(con, connectionHandler, NULL);
      CS104_Connection_setASDUReceivedHandler(con, asduReceivedHandler, NULL);
 
      if (CS104_Connection_connect(con))
     {
-         if(DebugMode==1) printf("Connected!\n");
          CS104_Connection_sendStartDT(con);
-         if(DebugMode==1) printf("Send Interrogation Command\n");
+         if(DebugMode==1)   mvwprintw(win,row-2,1, "Send Interrogation Command                                  "); 
          CS104_Connection_sendInterrogationCommand(con, CS101_COT_ACTIVATION, 1, IEC60870_QOI_STATION);
          while(1)
         {
+             wattroff(win,A_REVERSE);
+             mvwprintw(win,row-2,1, "Connected!                                                             "); 
+             wrefresh(win);
+            
              if(conState==0)
             {
-                 if(DebugMode==1) printf("Try to connect 1\n");
+                 mvwprintw(win,row-2,35, "Try to connect in while ");
+                 //wrefresh(win);
                  goto TRY_CONNECT;
             }
          CP56Time2a_createFromMsTimestamp(&newTime, Hal_getTimeInMs());
-         if(DebugMode==1 & TimeSync==1)  printf("tsync-->\n");
          if(TimeSync==1)   CS104_Connection_sendClockSyncCommand(con, 1, &newTime);
          Thread_sleep(1000);
         }
@@ -356,12 +343,35 @@ TRY_CONNECT:
     }
      else
     {
-         if(DebugMode==1) printf("Try to connect 2\n");
+         if(cvar==0)
+        { 
+             wattron(win,COLOR_PAIR(1));
+             mvwprintw(win,row-2,35, "Try to connect to server iec 104 "); 
+             wattroff(win,COLOR_PAIR(1));  
+             wrefresh(win);      
+             cvar=1;
+        }
+         else
+        { 
+             wattron(win,COLOR_PAIR(8));
+             mvwprintw(win,row-2,35, "Try to connect to server iec 104 "); 
+             wattroff(win,COLOR_PAIR(8));
+             wrefresh(win); 
+             cvar=0;       
+        }
+         
+         
+         
+         
          goto TRY_CONNECT;
      }
     Thread_sleep(1000);
     CS104_Connection_destroy(con);
     printf("exit\n");
+      wrefresh(win);
+         getch();
+         endwin();
+
 exit_program:
      exit(0);   
     

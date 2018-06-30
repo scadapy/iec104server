@@ -336,12 +336,6 @@ static bool clockSyncHandler (void* parameter, IMasterConnection connection, CS1
     return true;
 }
 
-
-
-
-
-
-
 int main(int argc, char **argv)
 {
      if(argc <= 1 || strcmp(argv[1], "--help")==0 || strcmp(argv[1], "/help")==0 )
@@ -398,7 +392,7 @@ int main(int argc, char **argv)
      struct sockaddr_in servaddr, cliaddr;
      char jline[1000];
      int boffset[1000];
-     printf("\nStart server iec104:          v.2.7\n");
+     printf("\nStart server iec104:          v.2.8\n");
 /* load from init file json */
      LoadJsonFile(argv[1]);
 /*start UDP server */
