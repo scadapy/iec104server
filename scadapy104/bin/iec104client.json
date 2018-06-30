@@ -1,18 +1,74 @@
 ﻿[
  { "Client":
-              { "UdpPort"   :"64002",
+              { "UdpPort"   :"64000",
                 "UdpIp"     :"0.0.0.0",
                 "Iec104Port":"2404",
                 "Iec104Ip"  :"127.0.0.1",
                 "Debug"     :"1",
-                "TimeSync"  :"1"
+                "TimeSync"  :"0"
               }
  },
  
  { "SinglePoint": 
             { 
               "VarType":"bool",
-              "Alias":"DiselOn",
+              "Alias":"DiselOn ",
+              "VarName": "__Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff",
+              "VarName": "__Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn1",
+              "VarName": "__Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff1",
+              "VarName": "__Discret_4", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn2",
+              "VarName": "__Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff2",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn ",
               "VarName": "Discret_1", 
               "IecAddress": "4001" 
              }  
@@ -27,6 +83,374 @@
              }  
  },
 
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn1",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff1",
+              "VarName": "Discret_4", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn2",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff2",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn ",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn1",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff1",
+              "VarName": "Discret_4", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn2",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff2",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn ",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn1",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff1",
+              "VarName": "Discret_4", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn2",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff2",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn ",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn1",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff1",
+              "VarName": "Discret_4", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn2",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff2",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn ",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn1",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff1",
+              "VarName": "Discret_4", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOn2",
+              "VarName": "Discret_1", 
+              "IecAddress": "4001" 
+             }  
+ },
+
+ { "SinglePoint": 
+            { 
+              "VarType":"bool",
+              "Alias":"DiselOff2",
+              "VarName": "Discret_2", 
+              "IecAddress": "4002" 
+             }  
+ },
+
+
+ { "MeasureValue": 
+             {  "VarType":"int32",
+                "VarName": "Analog_1__________________________________", 
+                "IecAddress": "8001",
+                "Alias": "Analog_1_1"
+             }  
+ },
+
+ { "MeasureValue": 
+             {  "VarType":"int32",
+                "VarName": "Analog_1", 
+                "IecAddress": "8002",
+                "Alias": "Analog_1_2"
+             }  
+ },
+ { "MeasureValue": 
+             {  "VarType":"int32",
+                "VarName": "Analog_1", 
+                "IecAddress": "8003",
+                "Alias": "Analog_1_3"
+             }  
+ },
+ { "MeasureValue": 
+             {  "VarType":"int32",
+                "VarName": "Analog_1", 
+                "IecAddress": "8004",
+                "Alias": "Analog_1_4"
+             }  
+ },
+ { "MeasureValue": 
+             {  "VarType":"int",
+                "VarName": "Analog_2", 
+                "IecAddress": "8005",
+                "Alias": "Analog_2"
+             }  
+ },
+
+
+ { "MeasureValue": 
+             {  "VarType":"int",
+                "VarName": "Analog_22", 
+                "IecAddress": "8006",
+                "Alias": "Analog_22_1"
+             }  
+ },
+
+ { "MeasureValue": 
+             {  "VarType":"int",
+                "VarName": "Analog_22_2", 
+                "IecAddress": "8007",
+                "Alias": "WaterTemp"
+             }  
+ },
+ { "MeasureValue": 
+             {  "VarType":"int",
+                "VarName": "Analog_22_3", 
+                "IecAddress": "8008",
+                "Alias": "Analog_22_3"
+             }  
+ },
+ { "MeasureValue": 
+             {  "VarType":"int",
+                "VarName": "Analog_23", 
+                "IecAddress": "8009",
+                "Alias": "Analog_23"
+             }  
+ },
+ { "MeasureValue": 
+             {  "VarType":"int",
+                "VarName": "Analog_4", 
+                "IecAddress": "8010",
+                "Alias": "Analog_4"
+             }  
+ },
+
+{ "MeasureValue": 
+             {  "VarType":"int32",
+                "VarName": "Analog_1", 
+                "IecAddress": "8002",
+                "Alias": "WaterTemp"
+             }  
+ },
+
+ { "MeasureValue": 
+             {  "VarType":"int32",
+                "VarName": "Analog_1", 
+                "IecAddress": "8002",
+                "Alias": "WaterTemp"
+             }  
+ },
+ { "MeasureValue": 
+             {  "VarType":"int32",
+                "VarName": "Analog_1", 
+                "IecAddress": "8002",
+                "Alias": "WaterTemp"
+             }  
+ },
+ { "MeasureValue": 
+             {  "VarType":"int32",
+                "VarName": "Analog_1", 
+                "IecAddress": "8002",
+                "Alias": "WaterTemp"
+             }  
+ },
  { "MeasureValue": 
              {  "VarType":"int32",
                 "VarName": "Analog_1", 
@@ -35,12 +459,42 @@
              }  
  },
 
+ { "MeasureValue": 
+             {  "VarType":"int",
+                "VarName": "Analog_1", 
+                "IecAddress": "8002",
+                "Alias": "Scaled"
+             }  
+ },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  { "MeasureValue": 
              {  "VarType":"int32",
                 "VarName": "Analog_2", 
                 "IecAddress": "8003",
-                "Alias": "FuelTemp"
+                "Alias": "FuelTemp "
              }  
  }
 
