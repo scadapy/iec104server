@@ -1,7 +1,7 @@
 ﻿# iec104server
 iec104server for UDP JSON
 ```
-Now version 2.7
+Now version 2.8
 ```
 iec104server
 ```
@@ -47,3 +47,9 @@ Json file structure like this:
 - UDP packet structure:
 - { "name":"VariableName","data":[123,0,2,3.14] }
 
+iec104client send UDP JSON
+```
+Now version 2.8
+```
+term104 iec104 client made on ncurses
+```
