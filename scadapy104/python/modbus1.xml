@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Config xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <VkVariables>
+ </VkVariables>
+ <VkConfig>
+     <Cnf VkLogin="" VkPassword=""></Cnf>
+ </VkConfig>
+ <DbConfig>
+     <Cnf DbHost="" DbPort="" DbLogin="" DbPassword=""></Cnf>
+ </DbConfig>
+ <ProjectConfig>
+     <Config ProjectName="NewProject" ProjectPath="F:\msys32\lib60870-C\scadapy104\python\" PathToPythonWindows="c:\Python35\python.exe" PathToBrowserWindows="c:\Program Files\Internet Explorer\iexplore" PathToTerminalLinux="xfce4-terminal --geometry=100x20 -e" PathToBrowserLinux="firefox" PathToPythonLinux="python3"></Config>
+ </ProjectConfig>
+ <ModbusConfig>
+     <PortModbus ParentIndex="0" ItemIndex="0" Level="2" Protocol="0"  Mtype="0" tcp_com="127.0.0.1" port_speed="502" name="Unit_1">0
+          <VariableModbus id="1" VarName="Discret_1" RtuAddress="1" RegName="READ_DISCRETE_INPUTS" RegAddress="0" RegOffset="5" TimeOut="0.5"></VariableModbus>
+          <VariableModbus id="2" VarName="Analog_1" RtuAddress="1" RegName="READ_INPUT_REGISTERS" RegAddress="0" RegOffset="5" TimeOut="0.5"></VariableModbus>
+          <VariableModbus id="3" VarName="Discret_2" RtuAddress="1" RegName="READ_DISCRETE_INPUTS" RegAddress="10" RegOffset="5" TimeOut="0.5"></VariableModbus>
+          <VariableModbus id="4" VarName="Discret_3" RtuAddress="1" RegName="READ_DISCRETE_INPUTS" RegAddress="20" RegOffset="5" TimeOut="0.5"></VariableModbus>
+          <VariableModbus id="5" VarName="Analog_2" RtuAddress="1" RegName="READ_INPUT_REGISTERS" RegAddress="10" RegOffset="5" TimeOut="0.5"></VariableModbus>
+          <VariableModbus id="6" VarName="Analog_3" RtuAddress="1" RegName="READ_INPUT_REGISTERS" RegAddress="20" RegOffset="1" TimeOut="1"></VariableModbus>
+          <VariableModbus id="7" VarName="Analog_4" RtuAddress="1" RegName="READ_INPUT_REGISTERS" RegAddress="21" RegOffset="1" TimeOut="1"></VariableModbus>
+     </PortModbus>
+     <PortModbus ParentIndex="0" ItemIndex="1" Level="2" Protocol="0"  Mtype="0" tcp_com="127.0.0.1" port_speed="502" name="Unit_2">0
+          <VariableModbus id="1" VarName="Unit_2_Discret" RtuAddress="1" RegName="READ_DISCRETE_INPUTS" RegAddress="30" RegOffset="5" TimeOut="0.5"></VariableModbus>
+          <VariableModbus id="2" VarName="Analog_22" RtuAddress="1" RegName="READ_INPUT_REGISTERS" RegAddress="20" RegOffset="5" TimeOut="0.5"></VariableModbus>
+          <VariableModbus id="3" VarName="Analog_23" RtuAddress="1" RegName="READ_INPUT_REGISTERS" RegAddress="40" RegOffset="5" TimeOut="0.5"></VariableModbus>
+     </PortModbus>
+ </ModbusConfig>
+ <MercuryConfig>
+     <PortMercury ParentIndex="1" ItemIndex="0" Level="2" Protocol="1" Mtype="1" tcp_com="1" port_speed="1" name="Название порта Меркурий-230">1
+          <VariableMercury id="1" VarName="t" Serial_Number="1" Empty1="" Empty2="" Net_Address="1" TimeOut="1"></VariableMercury>
+     </PortMercury>
+ </MercuryConfig>
+ <Variables>
+ </Variables>
+</Config>
